@@ -2,7 +2,32 @@
 #include <iostream>
 using namespace std;
 
-
+HKEY ff(int i)
+{
+	switch (i)
+	{
+	case 1:
+	{
+		return HKEY_CLASSES_ROOT;
+	}
+	case 2:
+	{
+		return HKEY_CURRENT_USER;
+	}
+	case 3:
+	{
+		return HKEY_LOCAL_MACHINE;
+	}
+	case 4:
+	{
+		return HKEY_USERS;
+	}
+	case 5:
+	{
+		return HKEY_CURRENT_CONFIG;
+	}
+	}
+}
 
 
 int main()
@@ -19,6 +44,10 @@ int main()
 
 	cin >> number_of_razd;
 	razd = ff(number_of_razd);
+	//razd = HKEY_CLASSES_ROOT;
+	
+	//wstring wrazd(razd.begin(), razd.end());
+	//LPCWSTR lrazd = wrazd.c_str();
 	
 	string s;
 	cout << "Введите путь" << endl;
@@ -79,7 +108,10 @@ int main()
 		RegEnumKeyEx(key, j, (LPWSTR)lpName, &lpcName, NULL, NULL, NULL, NULL);
 		index = 0;
 
+	/*	string s1 = s + "\\";
+		LPCWSTR str1 = (LPCWSTR)s1.c_str();*/
 		wstring df = wstring(ws) + wstring(sleh) + (LPWSTR)lpName;
+		/*LPCWSTR str1 = ws.c_str() + sleh.c_str();*/
 		LPCWSTR str1 = df.c_str();
 		RegOpenKeyEx(razd, str1, NULL, KEY_READ | KEY_WOW64_64KEY, &key);
 	}
